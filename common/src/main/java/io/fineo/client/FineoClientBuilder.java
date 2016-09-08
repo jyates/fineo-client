@@ -143,9 +143,9 @@ public class FineoClientBuilder {
       Type t = method.getReturnType();
       Future<Object> future = handleResponse(response, method);
       if (t.getTypeName().equals(CompletableFuture.class.getName())) {
-        return future.get();
+        return future;
       }
-      return future;
+      return future.get();
     }
 
     /**
