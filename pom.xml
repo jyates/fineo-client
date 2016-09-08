@@ -99,6 +99,11 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
+        <groupId>io.fineo.client</groupId>
+        <artifactId>common</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
         <groupId>io.fineo.read</groupId>
         <artifactId>readerator-common</artifactId>
         <version>${fineo.readerator.version}</version>

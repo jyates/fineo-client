@@ -11,20 +11,12 @@
 
   <groupId>io.fineo.client</groupId>
   <artifactId>jdbc</artifactId>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
 
   <dependencies>
+    <dependency>
+      <groupId>io.fineo.client</groupId>
+      <artifactId>common</artifactId>
+    </dependency>
     <dependency>
       <groupId>io.fineo.read</groupId>
       <artifactId>readerator-common</artifactId>
@@ -46,14 +38,6 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>jcl-over-slf4j</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.amazonaws</groupId>
-      <artifactId>aws-java-sdk-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.asynchttpclient</groupId>
-      <artifactId>async-http-client</artifactId>
     </dependency>
     <dependency>
       <groupId>com.google.guava</groupId>

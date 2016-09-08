@@ -3,6 +3,7 @@ package io.fineo.read.http;
 import com.amazonaws.ClientConfiguration;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.internal.StaticCredentialsProvider;
+import io.fineo.client.AwsClient;
 import io.fineo.read.AwsApiGatewayBytesTranslator;
 import io.fineo.read.jdbc.ConnectionStringBuilder;
 import io.fineo.read.jdbc.FineoConnectionProperties;
