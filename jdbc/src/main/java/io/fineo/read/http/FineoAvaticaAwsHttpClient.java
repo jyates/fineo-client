@@ -47,9 +47,10 @@ public class FineoAvaticaAwsHttpClient implements AvaticaHttpClient,
     client.setCredentials(this.credentials);
     request = translator.encode(request);
     try {
-      Response response = client.post(request).get();
+      Response response = client.post("/", request).get();
       return translator.decode(response.getResponseBodyAsBytes());
-    } catch (InterruptedException | ExecutionException | URISyntaxException e) {
+    } catch (InterruptedException | ExecutionException | URISyntaxException |
+      MalformedURLException e) {
       throw new RuntimeException(e);
     }
   }
