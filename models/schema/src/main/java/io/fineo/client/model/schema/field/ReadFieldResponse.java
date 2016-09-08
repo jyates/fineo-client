@@ -11,24 +11,27 @@ public class ReadFieldResponse {
     return name;
   }
 
-  public void setName(String name) {
+  public ReadFieldResponse setName(String name) {
     this.name = name;
+    return this;
   }
 
   public String[] getAliases() {
     return aliases;
   }
 
-  public void setAliases(String[] aliases) {
+  public ReadFieldResponse setAliases(String[] aliases) {
     this.aliases = aliases;
+    return this;
   }
 
   public String getType() {
     return type;
   }
 
-  public void setType(String type) {
+  public ReadFieldResponse setType(String type) {
     this.type = type;
+    return this;
   }
 
   @Override

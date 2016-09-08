@@ -8,7 +8,8 @@ public class MetricRequest {
     return metricName;
   }
 
-  public void setMetricName(String metricName) {
+  public <T extends MetricRequest> T setMetricName(String metricName) {
     this.metricName = metricName;
+    return (T) this;
   }
 }

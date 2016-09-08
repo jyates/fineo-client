@@ -9,7 +9,8 @@ public class CreateFieldRequest extends FieldRequest {
     return fieldType;
   }
 
-  public void setFieldType(String fieldType) {
+  public CreateFieldRequest setFieldType(String fieldType) {
     this.fieldType = fieldType;
+    return this;
   }
 }

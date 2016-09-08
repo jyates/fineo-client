@@ -43,7 +43,7 @@ public interface SchemaApi {
   ReadMetricResponse readMetric(@Parameter(name = "metricName") String metricName);
 
   @Op(path = "/schema/metric", method = "GET")
-  CompletableFuture<ReadMetricResponse> createMetricAync(
+  CompletableFuture<ReadMetricResponse> readMetricAync(
     @Parameter(name = "metricName") String metricName);
 
   @Op(path = "/schema/metric", method = "PATCH")

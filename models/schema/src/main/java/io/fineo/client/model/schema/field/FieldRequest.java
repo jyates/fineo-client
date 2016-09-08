@@ -10,7 +10,8 @@ public class FieldRequest extends MetricRequest {
     return fieldName;
   }
 
-  public void setFieldName(String fieldName) {
+  public <T extends FieldRequest> T setFieldName(String fieldName) {
     this.fieldName = fieldName;
+    return (T) this;
   }
 }
