@@ -1,9 +1,9 @@
 package io.fineo.read.http;
 
-import com.amazonaws.ClientConfiguration;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.internal.StaticCredentialsProvider;
 import io.fineo.client.AwsClient;
+import io.fineo.client.ClientConfiguration;
 import io.fineo.read.AwsApiGatewayBytesTranslator;
 import io.fineo.read.jdbc.ConnectionStringBuilder;
 import io.fineo.read.jdbc.FineoConnectionProperties;
@@ -38,8 +38,21 @@ public class FineoAvaticaAwsHttpClient implements AvaticaHttpClient,
       new URL(url.getProtocol(), url.getHost(), url.getPath()) :
       new URL(url.getProtocol(), url.getHost(), url.getPort(), url.getPath()));
     this.properties = ConnectionStringBuilder.parse(url);
-    this.client = new AwsClient(url, "/prod");
+    this.client = new AwsClient(url, "/prod", getConf(this.properties));
     client.setApiKey(properties.get(API_KEY));
+  }
+
+  private io.fineo.client.ClientConfiguration getConf(Map<String, String> properties) {
+    ClientConfiguration conf = new ClientConfiguration();
+    setInt(properties, FineoConnectionProperties.CLIENT_MAX_CONNECTIONS,
+      prop -> conf.setMaxConnections(prop));
+    setInt(properties, FineoConnectionProperties.CLIENT_REQUEST_TIMEOUT,
+      prop -> conf.setReadTimeout(prop));
+    setInt(properties, FineoConnectionProperties.CLIENT_INIT_TIMEOUT,
+      prop -> conf.setConnectTimeout(prop));
+    setInt(properties, FineoConnectionProperties.CLIENT_MAX_ERROR_RETRY,
+      prop -> conf.setMaxRequestRetry(prop));
+    return conf;
   }
 
   @Override
@@ -53,19 +66,6 @@ public class FineoAvaticaAwsHttpClient implements AvaticaHttpClient,
       MalformedURLException e) {
       throw new RuntimeException(e);
     }
-  }
-
-  private ClientConfiguration getClientConfiguration() {
-    ClientConfiguration client = new ClientConfiguration();
-    setInt(properties, FineoConnectionProperties.CLIENT_MAX_CONNECTIONS,
-      prop -> client.withMaxConnections(prop));
-    setInt(properties, FineoConnectionProperties.CLIENT_REQUEST_TIMEOUT,
-      prop -> client.withSocketTimeout(prop));
-    setInt(properties, FineoConnectionProperties.CLIENT_INIT_TIMEOUT,
-      prop -> client.withConnectionTimeout(prop));
-    setInt(properties, FineoConnectionProperties.CLIENT_MAX_ERROR_RETRY,
-      prop -> client.withMaxErrorRetry(prop));
-    return client;
   }
 
   @Override

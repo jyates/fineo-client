@@ -10,6 +10,7 @@
     <module>models</module>
     <module>common</module>
     <module>jdbc</module>
+    <module>model-testing</module>
   </modules>
   <packaging>pom</packaging>
 

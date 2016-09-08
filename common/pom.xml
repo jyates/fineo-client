@@ -22,5 +22,11 @@
       <groupId>org.asynchttpclient</groupId>
       <artifactId>async-http-client</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+    </dependency>
   </dependencies>
+
+  <!-- Shade all the resources so we don't interfere with other clients -->
 </project>

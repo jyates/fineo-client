@@ -10,13 +10,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>io.fineo.client</groupId>
-  <artifactId>models</artifactId>
-  <packaging>pom</packaging>
-  <modules>
-    <module>schema</module>
-    <module>write</module>
-    <module>schema-internal</module>
-    <module>common</module>
-  </modules>
+  <artifactId>model-testing</artifactId>
+
 
 </project>
