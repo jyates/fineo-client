@@ -25,6 +25,10 @@
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+    </dependency>
   </dependencies>
 
   <!-- Shade all the resources so we don't interfere with other clients -->
@@ -50,7 +54,6 @@
                 <includes>
                   <include>com.google.guava:guava</include>
                   <!-- Logging -->
-                  <include>org.slf4j:jcl-over-slf4j</include>
                   <include>org.slf4j:slf4j-api</include>
 
                   <!-- Connections -->

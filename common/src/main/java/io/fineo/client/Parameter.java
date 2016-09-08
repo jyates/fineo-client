@@ -9,8 +9,6 @@ public @interface Parameter {
 
   Type type() default Type.QUERY;
 
-  String value() default "";
-
   public enum Type{
     HEADER,
     QUERY;

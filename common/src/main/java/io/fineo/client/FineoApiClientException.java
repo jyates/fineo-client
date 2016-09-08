@@ -1,7 +1,7 @@
 package io.fineo.client;
 
 /**
- *
+ * Thrown when there is a server-side exception
  */
 public class FineoApiClientException extends RuntimeException{
   private int statusCode;

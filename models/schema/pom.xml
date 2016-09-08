@@ -13,4 +13,14 @@
   <artifactId>schema</artifactId>
 
 
+  <dependencies>
+    <dependency>
+      <groupId>io.fineo.client</groupId>
+      <artifactId>common</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.fineo.client.models</groupId>
+      <artifactId>common</artifactId>
+    </dependency>
+  </dependencies>
 </project>
