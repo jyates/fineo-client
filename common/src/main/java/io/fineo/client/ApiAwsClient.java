@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.concurrent.Future;
 import java.util.function.Function;
 
-public class AwsClient implements AutoCloseable {
+public class ApiAwsClient implements AutoCloseable {
 
   private final URI baseUri;
   private final URL url;
@@ -29,7 +29,7 @@ public class AwsClient implements AutoCloseable {
   private String apiKey;
   private final DefaultAsyncHttpClient client;
 
-  public AwsClient(URL url, String envPrefix, ClientConfiguration conf) throws URISyntaxException, MalformedURLException {
+  public ApiAwsClient(URL url, String envPrefix, ClientConfiguration conf) throws URISyntaxException, MalformedURLException {
     this.url = new URL(url, envPrefix);
     this.baseUri = url.toURI();
     this.client = new DefaultAsyncHttpClient(conf.build());
@@ -67,7 +67,6 @@ public class AwsClient implements AutoCloseable {
     return prepare(func, relative, data, method, Collections.emptyMap());
   }
 
-
   private BoundRequestBuilder prepare(Function<String, BoundRequestBuilder> func, String relative,
     byte[] data, HttpMethodName method, Map<String, List<String>> parameters)
     throws MalformedURLException {
@@ -92,9 +91,6 @@ public class AwsClient implements AutoCloseable {
       awsReq.setEndpoint(baseUri);
       awsReq.setResourcePath(path);
       awsReq.setParameters(parameters);
-      if (apiKey != null) {
-        awsReq.addHeader("x-api-key", apiKey);
-      }
 
       AWS4Signer signer = new AWS4Signer();
       signer.setServiceName("execute-api");

@@ -86,7 +86,7 @@ public class FineoClientBuilder {
 
   private ApiClientHandler getHandler(String endpoint) {
     try {
-      AwsClient client = new AwsClient(new URL(endpoint), this.stage, conf);
+      ApiAwsClient client = new ApiAwsClient(new URL(endpoint), this.stage, conf);
       client.setApiKey(apiKey);
       client.setCredentials(credentials);
       return new ApiClientHandler(client);
@@ -106,9 +106,9 @@ public class FineoClientBuilder {
   private class ApiClientHandler implements InvocationHandler {
 
     private ObjectMapper mapper = new ObjectMapper();
-    private AwsClient client;
+    private ApiAwsClient client;
 
-    public ApiClientHandler(AwsClient client) {
+    public ApiClientHandler(ApiAwsClient client) {
       this.client = client;
     }
 

@@ -2,7 +2,7 @@ package io.fineo.read.http;
 
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.internal.StaticCredentialsProvider;
-import io.fineo.client.AwsClient;
+import io.fineo.client.ApiAwsClient;
 import io.fineo.client.ClientConfiguration;
 import io.fineo.read.AwsApiGatewayBytesTranslator;
 import io.fineo.read.jdbc.ConnectionStringBuilder;
@@ -28,7 +28,7 @@ public class FineoAvaticaAwsHttpClient implements AvaticaHttpClient,
                                                   UsernamePasswordAuthenticateable {
   private final AwsApiGatewayBytesTranslator translator = new AwsApiGatewayBytesTranslator();
   private final Map<String, String> properties;
-  private final AwsClient client;
+  private final ApiAwsClient client;
   private StaticCredentialsProvider credentials;
 
   public FineoAvaticaAwsHttpClient(URL url) throws MalformedURLException, URISyntaxException {
@@ -38,7 +38,7 @@ public class FineoAvaticaAwsHttpClient implements AvaticaHttpClient,
       new URL(url.getProtocol(), url.getHost(), url.getPath()) :
       new URL(url.getProtocol(), url.getHost(), url.getPort(), url.getPath()));
     this.properties = ConnectionStringBuilder.parse(url);
-    this.client = new AwsClient(url, "/prod", getConf(this.properties));
+    this.client = new ApiAwsClient(url, "/prod", getConf(this.properties));
     client.setApiKey(properties.get(API_KEY));
   }
 

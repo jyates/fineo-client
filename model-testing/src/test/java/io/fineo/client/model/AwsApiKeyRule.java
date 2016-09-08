@@ -57,7 +57,7 @@ public class AwsApiKeyRule extends ExternalResource {
         request.withApiKey(id);
         client.deleteApiKey(request);
       } catch (Exception e) {
-        LOG.error("Failed to delete api key: " + id);
+        LOG.error("Failed to delete api key: " + id, e);
       }
     }
     super.after();
