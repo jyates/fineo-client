@@ -7,14 +7,14 @@ import io.fineo.client.model.Empty;
 import io.fineo.client.model.schema.field.CreateFieldRequest;
 import io.fineo.client.model.schema.field.ReadFieldResponse;
 import io.fineo.client.model.schema.field.UpdateFieldRequest;
+import io.fineo.client.model.schema.metric.CreateMetricRequest;
 import io.fineo.client.model.schema.metric.DeleteMetricRequest;
-import io.fineo.client.model.schema.metric.MetricRequest;
 import io.fineo.client.model.schema.metric.ReadMetricResponse;
 import io.fineo.client.model.schema.metric.UpdateMetricRequest;
 
 import java.util.concurrent.CompletableFuture;
 
-public interface SchemaApi {
+public interface SchemaApi extends AutoCloseable {
 
   // General Schema management
 
@@ -34,10 +34,10 @@ public interface SchemaApi {
   // Metrics
 
   @Op(path = "/schema/metric", method = "POST")
-  Empty createMetric(MetricRequest update);
+  Empty createMetric(CreateMetricRequest update);
 
   @Op(path = "/schema/metric", method = "POST")
-  CompletableFuture<Empty> createMetricAync(MetricRequest update);
+  CompletableFuture<Empty> createMetricAync(CreateMetricRequest update);
 
   @Op(path = "/schema/metric", method = "GET")
   ReadMetricResponse readMetric(@Parameter(name = "metricName") String metricName);

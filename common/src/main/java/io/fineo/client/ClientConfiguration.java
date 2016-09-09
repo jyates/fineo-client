@@ -8,11 +8,16 @@ import org.asynchttpclient.proxy.ProxyServerSelector;
 import java.util.concurrent.ThreadFactory;
 
 /**
- *
+ * Configure underlying connection properties. Generally the defaults will work fine - this is
+ * for folks trying to wring every little bit of performance out of the platform.
  */
 public class ClientConfiguration {
 
   private DefaultAsyncHttpClientConfig.Builder builder = new DefaultAsyncHttpClientConfig.Builder();
+  // some defaults that seem be useful
+  {
+    builder.setConnectTimeout(60);
+  }
 
   DefaultAsyncHttpClientConfig build(){
     return builder.build();

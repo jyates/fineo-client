@@ -12,6 +12,15 @@
   <groupId>io.fineo.client</groupId>
   <artifactId>model-testing</artifactId>
 
+  <build>
+    <plugins>
+      <!-- Test jar -->
+      <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+
   <dependencies>
     <dependency>
       <groupId>io.fineo.client.models</groupId>

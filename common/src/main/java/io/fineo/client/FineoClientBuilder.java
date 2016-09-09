@@ -77,6 +77,10 @@ public class FineoClientBuilder {
       throw new IllegalArgumentException("Missing endpoint information");
     }
     ApiClientHandler handler = getHandler(endpoint);
+    return build(apiClass, handler);
+  }
+
+  static <T> T build(Class<T> apiClass, ApiClientHandler handler){
     Object proxy = Proxy.newProxyInstance(apiClass.getClassLoader(),
       new Class<?>[]{
         apiClass
@@ -103,7 +107,7 @@ public class FineoClientBuilder {
     private String path;
   }
 
-  private class ApiClientHandler implements InvocationHandler {
+  static class ApiClientHandler implements InvocationHandler {
 
     private ObjectMapper mapper = new ObjectMapper();
     private ApiAwsClient client;
@@ -114,6 +118,11 @@ public class FineoClientBuilder {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+      if (method.getName().equals("close")) {
+        this.client.close();
+        return null;
+      }
+
       FineoClientBuilder.Request httpRequest = buildRequest(method, args);
       Future<Response> response;
       switch (httpRequest.method) {

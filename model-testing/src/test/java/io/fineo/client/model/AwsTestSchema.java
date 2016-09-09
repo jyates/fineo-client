@@ -8,8 +8,8 @@ import io.fineo.client.model.schema.field.CreateFieldRequest;
 import io.fineo.client.model.schema.field.ReadFieldResponse;
 import io.fineo.client.model.schema.internal.CreateOrgRequest;
 import io.fineo.client.model.schema.internal.InternalSchemaApi;
+import io.fineo.client.model.schema.metric.CreateMetricRequest;
 import io.fineo.client.model.schema.metric.DeleteMetricRequest;
-import io.fineo.client.model.schema.metric.MetricRequest;
 import io.fineo.client.model.schema.metric.ReadMetricResponse;
 import org.junit.Rule;
 import org.junit.Test;
@@ -46,9 +46,9 @@ public class AwsTestSchema {
       .withEndpoint(endpoint);
 
     // ensure that we have api keys for each org
-    String org = keys.createApiKey(TEST_ORG_ID_PREFIX + System.currentTimeMillis());
+    String org = keys.createKey(TEST_ORG_ID_PREFIX + System.currentTimeMillis());
     String orgAsync =
-      keys.createApiKey(TEST_ORG_ID_PREFIX + "async-" + System.currentTimeMillis() + 1);
+      keys.createKey(TEST_ORG_ID_PREFIX + "async-" + System.currentTimeMillis() + 1);
 
     InternalSchemaApi internal = builder.build(InternalSchemaApi.class);
     CreateOrgRequest request = new CreateOrgRequest();
@@ -64,7 +64,7 @@ public class AwsTestSchema {
 
     // create a metric for each org
     String metricName = "metric", metricAsync = "a_metric";
-    MetricRequest createMetric = new MetricRequest();
+    CreateMetricRequest createMetric = new CreateMetricRequest();
     createMetric.setMetricName(metricName);
 
     sync.createMetric(createMetric);
