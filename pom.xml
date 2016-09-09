@@ -33,6 +33,8 @@
 
     <!-- Test dependencies -->
     <junit.version>4.12</junit.version>
+    <mockito.version>1.10.19</mockito.version>
+    <hamcrest.version>1.3</hamcrest.version>
 
     <!-- Plugins -->
     <surefire.version>2.19</surefire.version>
@@ -43,7 +45,6 @@
     <!-- Test Running properties -->
     <test.output.to.file>true</test.output.to.file>
     <test.exclude.pattern></test.exclude.pattern>
-    <mockito.version>1.10.19</mockito.version>
   </properties>
 
   <build>
@@ -167,8 +168,14 @@
       </dependency>
       <dependency>
         <groupId>org.mockito</groupId>
-        <artifactId>mockito-all</artifactId>
+        <artifactId>mockito-core</artifactId>
         <version>${mockito.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.hamcrest</groupId>
+        <artifactId>hamcrest-core</artifactId>
+        <version>${hamcrest.version}</version>
         <scope>test</scope>
       </dependency>
     </dependencies>

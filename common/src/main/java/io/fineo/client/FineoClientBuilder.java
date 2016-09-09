@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.stream.Collectors;
@@ -80,7 +81,7 @@ public class FineoClientBuilder {
     return build(apiClass, handler);
   }
 
-  static <T> T build(Class<T> apiClass, ApiClientHandler handler){
+  static <T> T build(Class<T> apiClass, ApiClientHandler handler) {
     Object proxy = Proxy.newProxyInstance(apiClass.getClassLoader(),
       new Class<?>[]{
         apiClass
@@ -150,11 +151,16 @@ public class FineoClientBuilder {
       }
 
       Type t = method.getReturnType();
-      Future<Object> future = handleResponse(response, method);
+      CompletableFuture<Object> future = handleResponse(response, method);
       if (t.getTypeName().equals(CompletableFuture.class.getName())) {
         return future;
       }
-      return future.get();
+      try {
+        return future.join();
+      } catch (CompletionException e) {
+        // throw the actual case back out
+        throw e.getCause();
+      }
     }
 
     /**
