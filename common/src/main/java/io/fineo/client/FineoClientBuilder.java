@@ -33,6 +33,7 @@ import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static java.lang.String.format;
 
 /**
  * Build a fineo client
@@ -105,7 +106,7 @@ public class FineoClientBuilder {
     private Map<String, String> headers = new HashMap<>();
     private HttpMethodName method;
     private Object content;
-    private String path;
+    String path;
   }
 
   static class ApiClientHandler implements InvocationHandler {
@@ -178,6 +179,7 @@ public class FineoClientBuilder {
       if (op == null) {
         throw new IllegalArgumentException("Method isn't annotated with Op");
       }
+      request.path = op.path();
 
       Object content = null;
       Annotation[][] annotations = method.getParameterAnnotations();
@@ -199,7 +201,7 @@ public class FineoClientBuilder {
           }
         }
       }
-      request.path = op.path();
+
       request.content = content;
       request.method = HttpMethodName.fromValue(op.method());
       return request;
@@ -262,6 +264,14 @@ public class FineoClientBuilder {
       switch (p.type()) {
         case HEADER:
           request.headers.put(name, String.valueOf(arg));
+          break;
+        case PATH:
+          String template = format("{%s}", p.name());
+          if (arg == null) {
+            arg = p.nullStrategy().onNull.apply(p);
+          }
+          request.path.replaceFirst(template, arg.toString());
+          break;
         case QUERY:
           if (Map.class.isAssignableFrom(arg.getClass())) {
             Map<String, Object> map = (Map<String, Object>) arg;
