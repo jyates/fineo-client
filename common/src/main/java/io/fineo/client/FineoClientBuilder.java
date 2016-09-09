@@ -158,8 +158,10 @@ public class FineoClientBuilder {
       try {
         return future.join();
       } catch (CompletionException e) {
+        Throwable cause = e.getCause();
+        cause.setStackTrace(new Exception().getStackTrace());
         // throw the actual case back out
-        throw e.getCause();
+        throw cause;
       }
     }
 
@@ -233,6 +235,7 @@ public class FineoClientBuilder {
           } else {
             String error = content == null ? "" : IOUtils.toString(content);
             FineoApiClientException e = new FineoApiClientException(error);
+            e.setMethod(method.getName());
             e.setStatusCode(response.getStatusCode());
             String requestId = response.getHeaders().get("x-amzn-RequestId");
             if (requestId != null) {

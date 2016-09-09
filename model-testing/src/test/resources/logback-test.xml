@@ -1,0 +1,15 @@
+<configuration>
+  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p %c{3}[%L] - %m%n</pattern>
+    </encoder>
+  </appender>
+  <logger name="org.apache.http" level="INFO"/>
+  <!--<logger name="com.amazonaws" level="INFO"/>-->
+  <logger name="io.netty.buffer" level="INFO"/>
+  <logger name="io.netty.channel" level="INFO"/>
+  <!--<logger name="com.amazonaws.auth" level="TRACE"/>-->
+  <root level="TRACE">
+    <appender-ref ref="CONSOLE"/>
+  </root>
+</configuration>

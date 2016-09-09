@@ -5,6 +5,7 @@ import com.amazonaws.DefaultRequest;
 import com.amazonaws.auth.AWS4Signer;
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.http.HttpMethodName;
+import io.fineo.client.aws.Slf4jLogFactory;
 import org.asynchttpclient.BoundRequestBuilder;
 import org.asynchttpclient.DefaultAsyncHttpClient;
 import org.asynchttpclient.Response;
@@ -22,14 +23,19 @@ import java.util.concurrent.Future;
 import java.util.function.Function;
 
 public class ApiAwsClient implements AutoCloseable {
+  static {
+    Slf4jLogFactory.enable();
+  }
 
+  public static final byte[] EMPTY_BYTES = new byte[0];
   private final URI baseUri;
   private final URL url;
   private AWSCredentialsProvider credentials;
   private String apiKey;
   private final DefaultAsyncHttpClient client;
 
-  public ApiAwsClient(URL url, String envPrefix, ClientConfiguration conf) throws URISyntaxException, MalformedURLException {
+  public ApiAwsClient(URL url, String envPrefix, ClientConfiguration conf)
+    throws URISyntaxException, MalformedURLException {
     this.url = new URL(url, envPrefix);
     this.baseUri = url.toURI();
     this.client = new DefaultAsyncHttpClient(conf.build());
@@ -48,7 +54,7 @@ public class ApiAwsClient implements AutoCloseable {
   // get doesn't have a body
   public Future<Response> get(String path, Map<String, List<String>> parameters) throws
     URISyntaxException, MalformedURLException {
-    return prepare(client::prepareGet, path, new byte[0], HttpMethodName.PUT, parameters).execute();
+    return prepare(client::prepareGet, path, null, HttpMethodName.GET, parameters).execute();
   }
 
   public Future<Response> patch(String path, byte[] data)
@@ -73,20 +79,27 @@ public class ApiAwsClient implements AutoCloseable {
     String path = new File(url.getPath(), relative).toString();
     String url = new URL(this.url, path).toExternalForm();
     BoundRequestBuilder request = func.apply(url);
-    request.setBody(data);
+    if (data != null) {
+      request.setBody(data);
+    }
+
     if (credentials != null) {
       DefaultRequest<AmazonWebServiceRequest> awsReq = new DefaultRequest("execute-api");
+
+      String contentLength = "";
       if (data != null) {
         awsReq.setContent(new ByteArrayInputStream(data));
-        awsReq.addHeader("Content-Length", Integer.toString(data.length));
-        request.addHeader("Content-Type", "application/json");
+        contentLength = Integer.toString(data.length);
+        awsReq.addHeader("Content-Length", contentLength);
+        awsReq.addHeader("Content-Type", "application/json");
       }
 
       if (apiKey != null) {
-        request.addHeader("x-api-key", apiKey);
+        awsReq.addHeader("x-api-key", apiKey);
       }
 
-      request.addHeader("Accept", "application/json");
+      awsReq.addHeader("Cache-Control", "no-cache");
+      awsReq.addHeader("Accept", "application/json");
       awsReq.setHttpMethod(method);
       awsReq.setEndpoint(baseUri);
       awsReq.setResourcePath(path);

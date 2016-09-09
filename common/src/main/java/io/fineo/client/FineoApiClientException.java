@@ -6,6 +6,7 @@ package io.fineo.client;
 public class FineoApiClientException extends RuntimeException{
   private int statusCode;
   private String requestId;
+  private String method;
 
   public FineoApiClientException(String message) {
     super(message);
@@ -25,5 +26,13 @@ public class FineoApiClientException extends RuntimeException{
 
   public String getRequestId() {
     return requestId;
+  }
+
+  public void setMethod(String method) {
+    this.method = method;
+  }
+
+  public String getMethod() {
+    return method;
   }
 }

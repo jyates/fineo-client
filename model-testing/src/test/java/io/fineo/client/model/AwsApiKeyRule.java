@@ -19,8 +19,8 @@ public class AwsApiKeyRule extends ExternalResource {
     this.manager = new ApiKeyManager(credentials, stage, apiId);
   }
 
-  public String createKey(String description){
-    String key = this.manager.createApiKey(description);
+  public String createKey(String description, String planId){
+    String key = this.manager.createApiKey(description, planId);
     ids.add(key);
     return key;
   }
