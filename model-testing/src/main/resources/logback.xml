@@ -14,7 +14,7 @@
     </encoder>
   </appender>
   <logger name="io.fineo" level="TRACE"/>
-  <root level="INFO">
+  <root level="TRACE">
     <appender-ref ref="CONSOLE"/>
   </root>
 </configuration>
