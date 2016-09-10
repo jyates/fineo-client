@@ -1,24 +1,22 @@
-package io.fineo.e2e.external.write.batch;
+package io.fineo.e2e.external.write.stream;
 
 import com.beust.jcommander.JCommander;
 import io.fineo.client.ExposedFineoClientBuilder;
 import io.fineo.client.FineoClientBuilder;
-import io.fineo.client.model.write.BatchUploadRemoteS3File;
-import io.fineo.client.model.write.BatchWrite;
 import io.fineo.client.model.write.SingleStreamEventBase;
+import io.fineo.client.model.write.StreamRecordsResponse;
+import io.fineo.client.model.write.StreamWrite;
 import io.fineo.e2e.external.write.WriteApiOption;
 import io.fineo.e2e.external.write.WriteEventsOption;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.UUID;
+import java.util.Arrays;
 
-/**
- *
- */
-public class BatchE2E {
+public class StreamE2E {
 
-  private static final Logger LOG = LoggerFactory.getLogger(BatchE2E.class);
+  private static final Logger LOG = LoggerFactory.getLogger(
+    io.fineo.e2e.external.write.batch.BatchE2E.class);
 
   public static void main(String[] args) throws Exception {
     if (args == null || args.length == 0) {
@@ -26,9 +24,8 @@ public class BatchE2E {
     }
 
     WriteApiOption api = new WriteApiOption();
-    BatchFileOption write = new BatchFileOption();
-    WriteEventsOption events = new WriteEventsOption();
-    JCommander jc = new JCommander(new Object[]{api, write, events});
+    WriteEventsOption write = new WriteEventsOption();
+    JCommander jc = new JCommander(new Object[]{api, write});
     jc.parse(args);
 
     FineoClientBuilder builder = new ExposedFineoClientBuilder()
@@ -37,16 +34,16 @@ public class BatchE2E {
       .withEndpoint(api.getApi())
       .withCredentials(api.credentials.get());
 
-    try (BatchWrite batch = builder.build(BatchWrite.class)) {
-      String file = write.getFileName();
-      if (file != null) {
-        batch.uploadS3File(new BatchUploadRemoteS3File().setFilePath(file));
-      }
-      SingleStreamEventBase[] eventsToWrite = events.getEvents();
-      String fileName = UUID.randomUUID().toString();
-      if (eventsToWrite != null) {
-        batch.write(fileName, eventsToWrite);
-        LOG.info("Wrote batch of rows as file: {}", fileName);
+    try (StreamWrite stream = builder.build(StreamWrite.class)) {
+      SingleStreamEventBase[] event = write.getEvents();
+      if (event != null) {
+        StreamRecordsResponse response = stream.write(event);
+        String eventString = Arrays.toString(event);
+        assert response.getFailedRecordCount() == 0 :
+          "Got some failed records when writing to stream! " +
+          "\n events: \n" + eventString
+          + "\n results: \n" + Arrays.toString(response.getRecords());
+        LOG.info("Wrote events {}", Arrays.toString(event));
       }
 
     }
@@ -54,7 +51,7 @@ public class BatchE2E {
 
   private static String[] getArgs() {
     return new String[]{
-      "--api", "fcj1n5lot9",
+      "--api", "jo6nz6kjbj",
       "--api-key", "jAzNSmeY3x7U971bF1Qql56FtSyyWzk71b0Qxx1D",
       "--credential-type", "profile",
       "--profile-name", "tmp-user",

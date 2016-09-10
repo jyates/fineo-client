@@ -69,7 +69,7 @@ public class SchemaE2E {
   private static String[] getArgs() {
     return new String[]{
       " --api-internal", "jemcyhqlji",
-      "--api-external", "mlmxu4b05d",
+      "--api", "mlmxu4b05d",
       "--api-key", "pmV5QkC0RG7tHMYVdyvgG8qLgNV79Swh3XIiNsF1",
       // Plans: schema, writes
       "--plan", "5sq3mg", "8hzbrr",

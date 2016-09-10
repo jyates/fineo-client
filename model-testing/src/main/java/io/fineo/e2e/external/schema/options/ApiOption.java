@@ -14,7 +14,7 @@ public class ApiOption {
   @Parameter(names = "--api-internal", description = "Api endpoint to call for internal operations")
   public String internal;
 
-  @Parameter(names = "--api-external", description = "Api endpoint to call for external operations")
+  @Parameter(names = "--api", description = "Api endpoint to call for api operations")
   public String external;
 
   @Parameter(names = "--stage", description = "Api endpoint stage")

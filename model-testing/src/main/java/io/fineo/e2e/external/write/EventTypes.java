@@ -1,4 +1,4 @@
-package io.fineo.e2e.external.write.batch;
+package io.fineo.e2e.external.write;
 
 import io.fineo.client.model.write.SingleStreamEventBase;
 
