@@ -1,11 +1,17 @@
 package io.fineo.client;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import java.util.UUID;
 import java.util.function.Function;
 
 /**
  * Define non-body parameter for a method operation
  */
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.PARAMETER)
 public @interface Parameter {
 
   String name() default "";

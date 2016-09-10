@@ -10,7 +10,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>io.fineo.client.models</groupId>
-  <artifactId>batch-write</artifactId>
+  <artifactId>write</artifactId>
 
   <dependencies>
     <dependency>
@@ -22,5 +22,4 @@
       <artifactId>common</artifactId>
     </dependency>
   </dependencies>
-
 </project>

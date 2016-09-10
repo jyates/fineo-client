@@ -266,7 +266,7 @@ public class FineoClientBuilder {
           request.headers.put(name, String.valueOf(arg));
           break;
         case PATH:
-          String template = format("{%s}", p.name());
+          String template = format("\\{%s\\}", p.name());
           if (arg == null) {
             arg = p.nullStrategy().onNull.apply(p);
           }

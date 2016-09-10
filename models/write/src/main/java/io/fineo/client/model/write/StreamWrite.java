@@ -4,7 +4,7 @@ import io.fineo.client.Op;
 import io.fineo.client.model.Empty;
 import io.netty.util.concurrent.CompleteFuture;
 
-public interface StreamWrite {
+public interface StreamWrite extends AutoCloseable{
 
   @Op(method = "PUT", path = "/stream/events")
   <T extends SingleStreamEventBase> Empty write(T[] events);

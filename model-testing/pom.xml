@@ -36,7 +36,6 @@
       <groupId>com.amazonaws</groupId>
       <artifactId>aws-java-sdk-api-gateway</artifactId>
       <version>${aws-java-sdk.version}</version>
-      <scope>test</scope>
       <exclusions>
         <exclusion>
           <groupId>commons-logging</groupId>
@@ -45,21 +44,43 @@
       </exclusions>
     </dependency>
     <dependency>
+      <groupId>com.amazonaws</groupId>
+      <artifactId>aws-java-sdk</artifactId>
+      <version>${aws-java-sdk.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.beust</groupId>
+      <artifactId>jcommander</artifactId>
+      <version>1.48</version>
+    </dependency>
+    <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>log4j-over-slf4j</artifactId>
       <version>${slf4j.version}</version>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>jcl-over-slf4j</artifactId>
       <version>${slf4j.version}</version>
-      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>19.0</version>
+    </dependency>
+    <dependency>
+      <groupId>io.fineo.client</groupId>
+      <artifactId>common</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.fineo.client.models</groupId>
+      <artifactId>write</artifactId>
+      <version>${project.version}</version>
     </dependency>
   </dependencies>
 

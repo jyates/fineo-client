@@ -7,7 +7,7 @@ import io.fineo.client.model.Empty;
 import java.net.URI;
 import java.util.concurrent.CompletableFuture;
 
-public interface BatchWrite {
+public interface BatchWrite extends AutoCloseable {
 
   @Op(method = "PUT", path = "/batch/upload/data/{file}")
   <T extends SingleStreamEventBase> Empty write(

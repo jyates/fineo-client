@@ -1,6 +1,7 @@
 package io.fineo.client.model;
 
 import com.amazonaws.auth.AWSCredentialsProvider;
+import model.ApiKeyManager;
 import org.junit.rules.ExternalResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
