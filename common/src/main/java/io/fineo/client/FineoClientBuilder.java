@@ -202,6 +202,9 @@ public class FineoClientBuilder {
         }
       }
 
+      assert !request.path.contains("{") && !request.path.contains("}") :
+        "Request path " + request.path + " still contains a template field - they should be "
+        + "completely consumed by parameters or an exception thrown from the onNull Strategy";
       request.content = content;
       request.method = HttpMethodName.fromValue(op.method());
       return request;
@@ -270,7 +273,7 @@ public class FineoClientBuilder {
           if (arg == null) {
             arg = p.nullStrategy().onNull.apply(p);
           }
-          request.path.replaceFirst(template, arg.toString());
+          request.path = request.path.replaceFirst(template, arg.toString());
           break;
         case QUERY:
           if (Map.class.isAssignableFrom(arg.getClass())) {
