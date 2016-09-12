@@ -1,6 +1,7 @@
 package io.fineo.e2e.external.write.stream;
 
 import com.beust.jcommander.JCommander;
+import com.google.common.base.Joiner;
 import io.fineo.client.ExposedFineoClientBuilder;
 import io.fineo.client.FineoClientBuilder;
 import io.fineo.client.model.write.SingleStreamEventBase;
@@ -25,7 +26,8 @@ public class StreamE2E {
 
     WriteApiOption api = new WriteApiOption();
     WriteEventsOption write = new WriteEventsOption();
-    JCommander jc = new JCommander(new Object[]{api, write});
+    SequentialEvents seq = new SequentialEvents();
+    JCommander jc = new JCommander(new Object[]{api, write, seq});
     jc.parse(args);
 
     FineoClientBuilder builder = new ExposedFineoClientBuilder()
@@ -37,13 +39,19 @@ public class StreamE2E {
     try (StreamWrite stream = builder.build(StreamWrite.class)) {
       SingleStreamEventBase[] event = write.getEvents();
       if (event != null) {
-        StreamRecordsResponse response = stream.write(event);
-        String eventString = Arrays.toString(event);
-        assert response.getFailedRecordCount() == 0 :
-          "Got some failed records when writing to stream! " +
-          "\n events: \n" + eventString
-          + "\n results: \n" + Arrays.toString(response.getRecords());
-        LOG.info("Wrote events {}", Arrays.toString(event));
+        if (seq.sequential) {
+          for (SingleStreamEventBase e : event) {
+            stream.writeEvent(e);
+          }
+        } else {
+          StreamRecordsResponse response = stream.write(event);
+          String eventString = Arrays.toString(event);
+          assert response.getFailedRecordCount() == 0 :
+            "Got some failed records when writing to stream! " +
+            "\n events: \n" + eventString
+            + "\n results: \n" + Arrays.toString(response.getRecords());
+        }
+        LOG.info("Wrote events: \n{}", Joiner.on("\n").join(event));
       }
 
     }
@@ -51,13 +59,13 @@ public class StreamE2E {
 
   private static String[] getArgs() {
     return new String[]{
-      "--api", "jo6nz6kjbj",
+      "--api", "rdnleyjvoh",
       "--api-key", "jAzNSmeY3x7U971bF1Qql56FtSyyWzk71b0Qxx1D",
       "--credential-type", "profile",
       "--profile-name", "tmp-user",
       "--event-type", "metric",
-      "--event", "field.1",
-//      "--remote-file", "s3://api-batch-processing-test.io.fineo.io/remote-s3-file_metric.json"
+      "--event", "field.2"
+//    ,  "--seq"
     };
   }
 }

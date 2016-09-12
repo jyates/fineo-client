@@ -2,13 +2,13 @@ package io.fineo.e2e.external.write;
 
 import com.beust.jcommander.Parameter;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.Joiner;
 import io.fineo.client.model.write.SingleStreamEventBase;
-import io.fineo.e2e.external.write.EventTypes;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static java.lang.String.format;
 
@@ -37,31 +37,34 @@ public class WriteEventsOption {
   private <T extends SingleStreamEventBase> T getEvent(String type) throws IOException {
     ObjectMapper mapper = new ObjectMapper();
 
-    List<String> elems = new ArrayList<>();
+    Map<String, Object> event = new HashMap<>();
     boolean timestamp = false;
     for (String field : fields) {
       String[] parts = field.split("[.]");
       int i = 1;
       if (parts.length == 2) {
         i = 0;
+        event.put("metrictype", type);
       } else {
         if (!parts[0].equals(type)) {
           continue;
         }
       }
-      String fieldName = format("\"%s\"", parts[i]);
-      elems.add(Joiner.on(" : ").join(fieldName, parts[i + 1]));
+      event.put(parts[i], parts[i + 1]);
       if (parts[i].equals("timestamp")) {
         timestamp = true;
       }
     }
 
     if (timestamp == false) {
-      elems.add(format("\"timestamp\" : %s", System.currentTimeMillis()));
+      event.put("timestamp", System.currentTimeMillis());
     }
 
-    StringBuffer sb = new StringBuffer("{");
-    Joiner.on(", \n").appendTo(sb, elems);
-    return (T) mapper.readValue(sb.append("}").toString(), EventTypes.EVENTS.get(type));
+    String msg = mapper.writeValueAsString(event);
+    return (T) mapper.readValue(msg, EventTypes.EVENTS.get(type));
+  }
+
+  private String quote(String s) {
+    return format("\"%s\"", s);
   }
 }

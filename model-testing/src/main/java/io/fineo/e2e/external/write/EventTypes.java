@@ -11,10 +11,24 @@ import java.util.Map;
 public class EventTypes {
 
   public static Map<String, Class<? extends SingleStreamEventBase>> EVENTS = new HashMap<>();
+
   static {
     EVENTS.put("metric", Metric.class);
   }
-  public static class Metric extends SingleStreamEventBase{
+
+  public static class EventBase extends SingleStreamEventBase{
+    private String metrictype;
+
+    public String getMetrictype() {
+      return metrictype;
+    }
+
+    public void setMetrictype(String metrictype) {
+      this.metrictype = metrictype;
+    }
+  }
+
+  public static class Metric extends EventBase {
     private String field;
 
     public String getField() {
@@ -23,6 +37,15 @@ public class EventTypes {
 
     public void setField(String field) {
       this.field = field;
+    }
+
+    @Override
+    public String toString() {
+      return "Metric{" +
+             "timestamp='" + getTimestamp() + "'," +
+             "metrictype='" + getMetrictype() + "'," +
+             "field='" + field + '\'' +
+             '}';
     }
   }
 }
