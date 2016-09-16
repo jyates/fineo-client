@@ -37,15 +37,15 @@ public class BatchE2E {
       .withEndpoint(api.getApi())
       .withCredentials(api.credentials.get());
 
-    try (BatchWrite batch = builder.build(BatchWrite.class)) {
+    try(BatchWrite batch = builder.build(BatchWrite.class)){
       String file = write.getFileName();
-      if (file != null) {
+      if(file != null){
         batch.uploadS3File(new BatchUploadRemoteS3File().setFilePath(file));
       }
       SingleStreamEventBase[] eventsToWrite = events.getEvents();
       String fileName = UUID.randomUUID().toString();
-      if (eventsToWrite != null) {
-        batch.write(fileName, eventsToWrite);
+      if(eventsToWrite != null){
+        batch.write(fileName,eventsToWrite);
         LOG.info("Wrote batch of rows as file: {}", fileName);
       }
 

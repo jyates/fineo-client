@@ -24,19 +24,22 @@ public class AuthenticationUtil {
   private static final Logger LOG = LoggerFactory.getLogger(AuthenticationUtil.class);
   private static final String AUTH_TYPE_SEPARATOR = "_OR_";
 
-  public static void setupAuthentication(Properties info){
-      // load all the places the credentials could be stored
-      AWSCredentialsProviderChain chain = loadCredentialChain(info);
-      String user = chain.getCredentials().getAWSAccessKeyId();
-      String password = chain.getCredentials().getAWSSecretKey();
-      info.setProperty(BuiltInConnectionProperty.AVATICA_USER.camelName(), user);
-      info.setProperty(BuiltInConnectionProperty.AVATICA_PASSWORD.camelName(), password);
-    }
+  public static void setupAuthentication(Properties info) {
+    // load all the places the credentials could be stored
+    AWSCredentialsProviderChain chain = loadCredentialChain(info);
+    String user = chain.getCredentials().getAWSAccessKeyId();
+    String password = chain.getCredentials().getAWSSecretKey();
+    info.setProperty(BuiltInConnectionProperty.AVATICA_USER.camelName(), user);
+    info.setProperty(BuiltInConnectionProperty.AVATICA_PASSWORD.camelName(), password);
+  }
 
   private static AWSCredentialsProviderChain loadCredentialChain(Properties info) {
     String authType = FineoConnectionProperties.AUTHENTICATION.wrap(info).getString();
     String[] types = authType.split(AUTH_TYPE_SEPARATOR);
     List<AWSCredentialsProvider> sources = new ArrayList<>();
+    if (types == null || types.length == 0) {
+      sources.add(new DefaultAWSCredentialsProviderChain());
+    }
     for (String type : types) {
       switch (type.toLowerCase()) {
         case "default":
