@@ -18,7 +18,7 @@
     </dependency>
     <dependency>
       <groupId>io.fineo.client.models</groupId>
-      <artifactId>common</artifactId>
+      <artifactId>common-models</artifactId>
     </dependency>
   </dependencies>
 

@@ -5,7 +5,7 @@
   <parent>
     <artifactId>fineo-client-parent</artifactId>
     <groupId>io.fineo.client</groupId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
   </parent>
 
   <groupId>io.fineo.client.internal</groupId>
@@ -34,27 +34,43 @@
     <connection>>scm:git:https://github.com/jyates/fineo-client-internal</connection>
   </scm>
 
+  <repositories>
+    <repository>
+      <id>Fineo</id>
+      <url>http://maven.fineo.io/release</url>
+    </repository>
+  </repositories>
+
+  <properties>
+    <fineo-client.version>1.0.0</fineo-client.version>
+  </properties>
+
   <dependencyManagement>
     <dependencies>
       <dependency>
         <groupId>io.fineo.client</groupId>
         <artifactId>common</artifactId>
-        <version>${project.version}</version>
+        <version>${fineo-client.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.fineo.client.models</groupId>
+        <artifactId>common-models</artifactId>
+        <version>${fineo-client.version}</version>
       </dependency>
       <dependency>
         <groupId>io.fineo.client.models</groupId>
         <artifactId>write</artifactId>
-        <version>${project.version}</version>
+        <version>${fineo-client.version}</version>
       </dependency>
       <dependency>
         <groupId>io.fineo.client.models</groupId>
         <artifactId>schema</artifactId>
-        <version>${project.version}</version>
+        <version>${fineo-client.version}</version>
       </dependency>
       <dependency>
         <groupId>io.fineo.client.models</groupId>
         <artifactId>schema-internal</artifactId>
-        <version>${project.version}</version>
+        <version>${fineo-client.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
