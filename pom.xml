@@ -48,6 +48,11 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
+        <groupId>io.fineo.client.internal</groupId>
+        <artifactId>schema-internal</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
         <groupId>io.fineo.client</groupId>
         <artifactId>common</artifactId>
         <version>${fineo-client.version}</version>

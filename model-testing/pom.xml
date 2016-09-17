@@ -21,6 +21,13 @@
   </build>
 
   <dependencies>
+    <!-- Intra project -->
+    <dependency>
+      <groupId>io.fineo.client.internal</groupId>
+      <artifactId>schema-internal</artifactId>
+    </dependency>
+
+    <!-- General Fineo Client -->
     <dependency>
       <groupId>io.fineo.client</groupId>
       <artifactId>common</artifactId>
@@ -33,10 +40,8 @@
       <groupId>io.fineo.client.models</groupId>
       <artifactId>schema</artifactId>
     </dependency>
-    <dependency>
-      <groupId>io.fineo.client.models</groupId>
-      <artifactId>schema-internal</artifactId>
-    </dependency>
+
+    <!-- Aws -->
     <dependency>
       <groupId>com.amazonaws</groupId>
       <artifactId>aws-java-sdk-api-gateway</artifactId>
@@ -53,6 +58,8 @@
       <artifactId>aws-java-sdk</artifactId>
       <version>${aws-java-sdk.version}</version>
     </dependency>
+
+    <!-- Other -->
     <dependency>
       <groupId>com.beust</groupId>
       <artifactId>jcommander</artifactId>
