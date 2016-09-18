@@ -5,12 +5,11 @@
   <parent>
     <artifactId>fineo-client-parent</artifactId>
     <groupId>io.fineo.client</groupId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
   </parent>
 
   <groupId>io.fineo.client.internal</groupId>
   <artifactId>fineo-client-internal-parent</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
   <modules>
     <module>schema-internal</module>
     <module>model-testing</module>
@@ -42,8 +41,26 @@
   </repositories>
 
   <properties>
-    <fineo-client.version>1.0.0</fineo-client.version>
+    <failsafe.version>2.19.1</failsafe.version>
+    <it.output.to.file>true</it.output.to.file>
   </properties>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <artifactId>maven-failsafe-plugin</artifactId>
+          <version>${failsafe.version}</version>
+          <configuration>
+            <includes>
+              <include>**/IT*.java</include>
+            </includes>
+            <redirectTestOutputToFile>${it.output.to.file}</redirectTestOutputToFile>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 
   <dependencyManagement>
     <dependencies>
@@ -51,31 +68,6 @@
         <groupId>io.fineo.client.internal</groupId>
         <artifactId>schema-internal</artifactId>
         <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.fineo.client</groupId>
-        <artifactId>common</artifactId>
-        <version>${fineo-client.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.fineo.client.models</groupId>
-        <artifactId>common-models</artifactId>
-        <version>${fineo-client.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.fineo.client.models</groupId>
-        <artifactId>write</artifactId>
-        <version>${fineo-client.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.fineo.client.models</groupId>
-        <artifactId>schema</artifactId>
-        <version>${fineo-client.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.fineo.client.models</groupId>
-        <artifactId>schema-internal</artifactId>
-        <version>${fineo-client.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

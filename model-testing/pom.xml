@@ -5,7 +5,7 @@
   <parent>
     <groupId>io.fineo.client.internal</groupId>
     <artifactId>fineo-client-internal-parent</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
@@ -16,6 +16,10 @@
       <!-- Test jar -->
       <plugin>
         <artifactId>maven-jar-plugin</artifactId>
+      </plugin>
+      <!-- Integration tests -->
+      <plugin>
+        <artifactId>maven-failsafe-plugin</artifactId>
       </plugin>
     </plugins>
   </build>

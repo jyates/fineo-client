@@ -70,7 +70,7 @@ public class SchemaE2E {
     return new String[]{
       " --api-internal", "jemcyhqlji",
       "--api", "mlmxu4b05d",
-      "--api-key", "pmV5QkC0RG7tHMYVdyvgG8qLgNV79Swh3XIiNsF1",
+//      "--api-key", "pmV5QkC0RG7tHMYVdyvgG8qLgNV79Swh3XIiNsF1",
       // Plans: schema, writes
       "--plan", "5sq3mg", "8hzbrr",
       "--credential-type", "profile",

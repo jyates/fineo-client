@@ -48,9 +48,9 @@ public class ApiKeyManager {
     return result.getId();
   }
 
-  public void deleteKey(String id) {
+  public void deleteKey(String keyId) {
     DeleteApiKeyRequest request = new DeleteApiKeyRequest();
-    request.withApiKey(id);
+    request.withApiKey(keyId);
     client.deleteApiKey(request);
   }
 }
