@@ -11,7 +11,8 @@ public class CreateOrgRequest {
     return orgId;
   }
 
-  public void setOrgId(String orgId) {
+  public CreateOrgRequest setOrgId(String orgId) {
     this.orgId = orgId;
+    return this;
   }
 }

@@ -6,7 +6,7 @@ import io.fineo.client.model.Empty;
 
 import java.util.concurrent.CompletableFuture;
 
-public interface InternalSchemaApi {
+public interface InternalSchemaApi extends AutoCloseable{
 
   // General Schema management
 

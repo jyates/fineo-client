@@ -1,4 +1,4 @@
-package io.fineo.e2e.external.schema.options;
+package io.fineo.e2e.external.schema.schema_e2e.options;
 
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParametersDelegate;

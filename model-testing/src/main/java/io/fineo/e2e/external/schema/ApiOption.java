@@ -1,19 +1,18 @@
-package io.fineo.e2e.external.write;
+package io.fineo.e2e.external.schema;
 
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParametersDelegate;
-import io.fineo.e2e.external.ApiUtils;
 import io.fineo.e2e.external.schema.schema_e2e.options.CredentialsOption;
 
-import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  */
-public class WriteApiOption {
-
-  @Parameter(names = "--api", description = "Api endpoint to call for api operations")
-  public String api;
+public class ApiOption {
+  @Parameter(names = "--schema-internal-url", description = "URL to call for api operations")
+  public String url;
 
   @Parameter(names = "--stage", description = "Api endpoint stage")
   public String stage = "prod";
@@ -23,8 +22,4 @@ public class WriteApiOption {
 
   @ParametersDelegate
   public CredentialsOption credentials = new CredentialsOption();
-
-  public String getApi() throws MalformedURLException {
-    return ApiUtils.getUrl(api).toString();
-  }
 }

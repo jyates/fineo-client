@@ -16,8 +16,7 @@ import java.util.Arrays;
 
 public class StreamE2E {
 
-  private static final Logger LOG = LoggerFactory.getLogger(
-    io.fineo.e2e.external.write.batch.BatchE2E.class);
+  private static final Logger LOG = LoggerFactory.getLogger(StreamE2E.class);
 
   public static void main(String[] args) throws Exception {
     if (args == null || args.length == 0) {

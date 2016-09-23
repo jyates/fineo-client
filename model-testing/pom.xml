@@ -5,7 +5,7 @@
   <parent>
     <groupId>io.fineo.client.internal</groupId>
     <artifactId>fineo-client-internal-parent</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.2-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
@@ -43,6 +43,13 @@
     <dependency>
       <groupId>io.fineo.client.models</groupId>
       <artifactId>schema</artifactId>
+    </dependency>
+
+    <!-- Fineo JDBC -->
+    <dependency>
+      <groupId>io.fineo.client</groupId>
+      <artifactId>jdbc</artifactId>
+      <version>${project.version}</version>
     </dependency>
 
     <!-- Aws -->
@@ -88,6 +95,11 @@
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
       <version>19.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.yaml</groupId>
+      <artifactId>snakeyaml</artifactId>
+      <version>1.17</version>
     </dependency>
   </dependencies>
 

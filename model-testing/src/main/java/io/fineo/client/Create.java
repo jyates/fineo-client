@@ -11,10 +11,10 @@ import io.fineo.client.model.schema.internal.CreateOrgRequest;
 import io.fineo.client.model.schema.internal.InternalSchemaApi;
 import io.fineo.client.model.schema.metric.CreateMetricRequest;
 import io.fineo.e2e.external.ApiUtils;
-import io.fineo.e2e.external.schema.options.ApiOption;
-import io.fineo.e2e.external.schema.options.FieldOption;
-import io.fineo.e2e.external.schema.options.MetricOption;
-import io.fineo.e2e.external.schema.options.OrgOption;
+import io.fineo.e2e.external.schema.schema_e2e.options.ApiOption;
+import io.fineo.e2e.external.schema.schema_e2e.options.FieldOption;
+import io.fineo.e2e.external.schema.schema_e2e.options.MetricOption;
+import io.fineo.e2e.external.schema.OrgOption;
 import model.ApiKeyManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -91,7 +91,7 @@ public class Create implements Command<Map<String, Object>> {
 
   private String createKey() throws MalformedURLException {
     ApiKeyManager keys = new ApiKeyManager(api.credentials.get(), api.stage, api.external);
-    return keys.createApiKey(org.org, api.plan.toArray(new String[0]));
+    return keys.createApiKey(org.id, api.plan.toArray(new String[0]));
   }
 
   private void createOrg(ApiAwsClient client, String orgId) {

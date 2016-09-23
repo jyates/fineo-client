@@ -1,4 +1,4 @@
-package io.fineo.e2e.external.schema.options;
+package io.fineo.e2e.external.schema.schema_e2e.options;
 
 
 import com.beust.jcommander.Parameter;
@@ -12,7 +12,7 @@ public class OutputOption {
 
   private static final Logger LOG = LoggerFactory.getLogger(OutputOption.class);
 
-  @Parameter(names = "--output", description = "Output file to write the created org id")
+  @Parameter(names = "--output", description = "Output file to write the created id id")
   private String path;
 
   public void write(String output) throws FileNotFoundException {

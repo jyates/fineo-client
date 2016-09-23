@@ -1,4 +1,4 @@
-package io.fineo.e2e.external.schema;
+package io.fineo.e2e.external.schema.schema_e2e;
 
 import com.beust.jcommander.JCommander;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -6,18 +6,18 @@ import com.google.common.base.Joiner;
 import io.fineo.client.Command;
 import io.fineo.client.Create;
 import io.fineo.client.FineoApiClientException;
-import io.fineo.e2e.external.schema.options.ApiOption;
-import io.fineo.e2e.external.schema.options.FieldOption;
-import io.fineo.e2e.external.schema.options.MetricOption;
-import io.fineo.e2e.external.schema.options.OrgOption;
-import io.fineo.e2e.external.schema.options.OutputOption;
+import io.fineo.e2e.external.schema.schema_e2e.options.ApiOption;
+import io.fineo.e2e.external.schema.schema_e2e.options.FieldOption;
+import io.fineo.e2e.external.schema.schema_e2e.options.MetricOption;
+import io.fineo.e2e.external.schema.OrgOption;
+import io.fineo.e2e.external.schema.schema_e2e.options.OutputOption;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
 /**
- * Create an org, metric and set of fields. Alternative command to delete the same
+ * Create an id, metric and set of fields. Alternative command to delete the same
  */
 public class SchemaE2E {
 
@@ -75,7 +75,7 @@ public class SchemaE2E {
       "--plan", "5sq3mg", "8hzbrr",
       "--credential-type", "profile",
       "--profile-name", "tmp-user",
-      "--org", "test-invoke-api-key",
+      "--id", "test-invoke-api-key",
       "--metric", "metric",
       "--field", "metric.field",
       "--type", "metric.field.INTEGER",

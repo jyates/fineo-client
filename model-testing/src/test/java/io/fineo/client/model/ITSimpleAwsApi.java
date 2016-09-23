@@ -4,6 +4,7 @@ import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import io.fineo.client.FineoApiClientException;
 import io.fineo.client.FineoClientBuilder;
+import io.fineo.e2e.external.ApiUtils;
 import model.ApiKeyManager;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -27,8 +28,7 @@ public class ITSimpleAwsApi {
 
   private static final String TEST_USAGE_PLAN = "zrr0qh";
   private static final String INTEGRATION_API_ID = "bvnlz7s8gi";
-  private static final String ENDPOINT =
-    "https://bvnlz7s8gi.execute-api.us-east-1.amazonaws.com";
+  private static final String ENDPOINT = ApiUtils.getUrl(INTEGRATION_API_ID).toString();
   private static final String PROFILE_FOR_TEST_INIT = "it-test-api";
 
   private static final AWSCredentialsProvider credentials = new ProfileCredentialsProvider
