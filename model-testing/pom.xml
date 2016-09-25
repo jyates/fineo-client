@@ -63,6 +63,7 @@
               <artifactSet>
                 <includes>
                   <include>io.fineo.client:tools</include>
+                  <include>io.fineo.client.internal:schema-internal</include>
                 </includes>
               </artifactSet>
               <filters>
