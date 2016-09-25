@@ -11,7 +11,7 @@ import java.util.List;
  *
  */
 public class ApiOption {
-  @Parameter(names = "--schema-internal-url", description = "URL to call for api operations")
+  @Parameter(names = "--url", description = "URL to call for api operations")
   public String url;
 
   @Parameter(names = "--stage", description = "Api endpoint stage")
