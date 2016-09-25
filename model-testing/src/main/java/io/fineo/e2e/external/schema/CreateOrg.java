@@ -1,11 +1,12 @@
 package io.fineo.e2e.external.schema;
 
 import com.beust.jcommander.JCommander;
-import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParametersDelegate;
 import io.fineo.client.FineoClientBuilder;
 import io.fineo.client.model.schema.internal.CreateOrgRequest;
 import io.fineo.client.model.schema.internal.InternalSchemaApi;
+import io.fineo.client.tools.option.ApiOption;
+import io.fineo.client.tools.option.HelpOption;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,18 +23,14 @@ public class CreateOrg {
   @ParametersDelegate
   private OrgOption org = new OrgOption();
 
-  @Parameter(names = {"-h", "--help"}, help = true)
-  private boolean help = false;
+  @ParametersDelegate
+  private HelpOption help = HelpOption.help();
 
   public static void main(String[] args) throws Exception {
     CreateOrg create = new CreateOrg();
     JCommander jc = new JCommander(new Object[]{create});
     jc.parse(args);
-    if (create.help) {
-      jc.usage();
-      System.exit(0);
-    }
-
+    create.help.check(jc);
     create.run();
   }
 
