@@ -2,7 +2,9 @@ package io.fineo.e2e.external.schema;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.ParametersDelegate;
+import io.fineo.client.FineoApiClientException;
 import io.fineo.client.FineoClientBuilder;
+import io.fineo.client.model.schema.ReadSchemaManagement;
 import io.fineo.client.model.schema.internal.CreateOrgRequest;
 import io.fineo.client.model.schema.internal.InternalSchemaApi;
 import io.fineo.client.tools.option.ApiOption;
@@ -42,7 +44,21 @@ public class CreateOrg {
       .withApiKey(api.key)
       .build(InternalSchemaApi.class)) {
 
-      schema.create(new CreateOrgRequest().setOrgId(org.id));
+      while (true) {
+        try {
+          schema.create(new CreateOrgRequest().setOrgId(org.id));
+          LOG.info("---- Completed schema creation ------ ");
+          return;
+        } catch (FineoApiClientException e) {
+          if (e.getMessage().contains("Forbidden")) {
+            LOG.info("Waiting for key to be added to usage plan...");
+            Thread.sleep(2000);
+          } else {
+            throw e;
+          }
+        }
+
+      }
     }
   }
 }
