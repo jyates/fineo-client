@@ -23,7 +23,7 @@ public interface IntegrationTestingApi extends AutoCloseable {
   Empty get();
 
   @Op(path = "/", method = "GET")
-  Empty getWithParams(@Parameter(name = "metricName") String name);
+  ParamResponse getWithParams(@Parameter(name = "metricName") String name);
 
   @Op(path = "/simple-object-response", method = "PUT")
   SimpleObjectResponse simpleObject();

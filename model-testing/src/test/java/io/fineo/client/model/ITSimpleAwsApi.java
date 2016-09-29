@@ -16,8 +16,10 @@ import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -31,10 +33,10 @@ public class ITSimpleAwsApi {
   private static final String ENDPOINT = ApiUtils.getUrl(INTEGRATION_API_ID).toString();
   private static final String PROFILE_FOR_TEST_INIT = "it-test-api";
 
-  private static final AWSCredentialsProvider credentials = new ProfileCredentialsProvider
-    (PROFILE_FOR_TEST_INIT);
-  private static final ApiKeyManager keys = new ApiKeyManager(credentials, "prod",
-    INTEGRATION_API_ID);
+  private static final AWSCredentialsProvider credentials =
+    new ProfileCredentialsProvider(PROFILE_FOR_TEST_INIT);
+  private static final ApiKeyManager keys =
+    new ApiKeyManager(credentials, "prod", INTEGRATION_API_ID);
 
   private static String API_KEY;
 
@@ -102,7 +104,8 @@ public class ITSimpleAwsApi {
   @Test
   public void testGetParameters() throws Exception {
     try (IntegrationTestingApi api = getApi()) {
-      api.getWithParams("getField");
+      ParamResponse response = api.getWithParams("getField");
+      assertEquals("getField", ((Map) response.getParams().get("querystring")).get("metricName"));
     }
   }
 
