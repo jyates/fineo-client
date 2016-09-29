@@ -41,25 +41,32 @@
   </repositories>
 
   <properties>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <failsafe.version>2.19.1</failsafe.version>
     <it.output.to.file>true</it.output.to.file>
   </properties>
 
   <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <artifactId>maven-failsafe-plugin</artifactId>
-          <version>${failsafe.version}</version>
-          <configuration>
-            <includes>
-              <include>**/IT*.java</include>
-            </includes>
-            <redirectTestOutputToFile>${it.output.to.file}</redirectTestOutputToFile>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
+    <plugins>
+      <plugin>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>2.19.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <includes>
+            <include>**/IT*.java</include>
+          </includes>
+          <redirectTestOutputToFile>${it.output.to.file}</redirectTestOutputToFile>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
 
   <dependencyManagement>

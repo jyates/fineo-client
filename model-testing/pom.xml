@@ -45,10 +45,6 @@
       <plugin>
         <artifactId>maven-jar-plugin</artifactId>
       </plugin>
-      <!-- Integration tests -->
-      <plugin>
-        <artifactId>maven-failsafe-plugin</artifactId>
-      </plugin>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>
         <executions>
