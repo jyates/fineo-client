@@ -13,6 +13,7 @@
   <modules>
     <module>schema-internal</module>
     <module>model-testing</module>
+    <module>tools</module>
   </modules>
   <packaging>pom</packaging>
 
