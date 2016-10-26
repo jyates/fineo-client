@@ -1,6 +1,8 @@
 package io.fineo.client.model;
 
 import com.amazonaws.auth.AWSCredentialsProvider;
+import com.amazonaws.auth.AWSCredentialsProviderChain;
+import com.amazonaws.auth.EnvironmentVariableCredentialsProvider;
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import io.fineo.client.FineoApiClientException;
 import io.fineo.client.FineoClientBuilder;
@@ -33,8 +35,11 @@ public class ITSimpleAwsApi {
   private static final String ENDPOINT = ApiUtils.getUrl(INTEGRATION_API_ID).toString();
   private static final String PROFILE_FOR_TEST_INIT = "it-test-api";
 
+  // read credentials for the api from the environment and then from a specific profile
   private static final AWSCredentialsProvider credentials =
-    new ProfileCredentialsProvider(PROFILE_FOR_TEST_INIT);
+    new AWSCredentialsProviderChain(
+      new EnvironmentVariableCredentialsProvider(),
+      new ProfileCredentialsProvider(PROFILE_FOR_TEST_INIT));
   private static final ApiKeyManager keys =
     new ApiKeyManager(credentials, "prod", INTEGRATION_API_ID);
 
