@@ -39,6 +39,10 @@
       <id>Fineo</id>
       <url>http://maven.fineo.io/release</url>
     </repository>
+    <repository>
+      <id>Fineo-Snapshot</id>
+      <url>http://maven.fineo.io/snapshot</url>
+    </repository>
   </repositories>
 
   <properties>
