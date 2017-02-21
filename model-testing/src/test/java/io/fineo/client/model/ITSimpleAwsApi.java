@@ -51,6 +51,7 @@ public class ITSimpleAwsApi {
   @BeforeClass
   public static void setupApiKey() throws Exception {
     API_KEY = keys.createApiKey("it " + Instant.now(), TEST_USAGE_PLAN);
+    LOG.debug("Created api key: {}", API_KEY);
     waitForKey();
   }
 
