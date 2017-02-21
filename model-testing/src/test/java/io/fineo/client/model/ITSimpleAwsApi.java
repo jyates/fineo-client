@@ -146,7 +146,7 @@ public class ITSimpleAwsApi {
           return;
         } catch (FineoApiClientException e) {
           if (e.getMessage().contains("\"message\":\"Forbidden\"")) {
-            Thread.sleep(2000);
+            Thread.sleep(20000);
           } else {
             LOG.error("==== Error ==== \n{]", e.getMessage());
             throw e;
