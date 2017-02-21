@@ -41,7 +41,7 @@ public class ITSimpleAwsApi {
       new EnvironmentVariableCredentialsProvider(),
       new ProfileCredentialsProvider(PROFILE_FOR_TEST_INIT));
   private static final ApiKeyManager keys =
-    new ApiKeyManager(credentials, "prod", INTEGRATION_API_ID);
+    new ApiKeyManager(credentials, "v1", INTEGRATION_API_ID);
 
   private static String API_KEY;
 
